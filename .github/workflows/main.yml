@@ -13,11 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TG_API_KEY: ${{ secrets.TG_API_KEY }}
+      A_NAME:  ${{secrets.HEROKU_APP_NAME}}
     steps:
       - name: Checkout.
         uses: actions/checkout@v2
       - name: Print
-        run: echo ${{ secrets.HEROKU_API_KEY_2 }}
+        run: echo "A_NAME"
       - name: Build, Push and Release a Docker container to Heroku.
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
