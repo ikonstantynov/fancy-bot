@@ -1,9 +1,9 @@
 from unittest.mock import Mock
-from handler import start
+from bot import start
 from telegram import Update
 
 
-class TestHandler:
+class TestBot:
 
     def test_true(self):
         assert True is True
