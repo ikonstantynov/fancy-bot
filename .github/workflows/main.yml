@@ -11,9 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production
     env:
       TG_API_KEY: ${{ secrets.TG_API_KEY }}
-      A_NAME:  ${{secrets.production.HEROKU_APP_NAME}}
+      A_NAME:  ${{secrets.HEROKU_APP_NAME}}
     steps:
       - name: Checkout.
         uses: actions/checkout@v2
