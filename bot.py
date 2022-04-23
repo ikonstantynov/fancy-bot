@@ -56,10 +56,10 @@ def main() -> None:
     """Start the bot."""
     logger.info('Starting the bot')
     # Create the Updater and pass it your bot's token.
-    port = os.getenv('PORT', default=8000)
-    logger.info(f'Listening to port {port}')
+    # port = os.getenv('PORT', default=80)
+    # logger.info(f'Listening to port {port}')
     updater = Updater(os.environ["TG_API_TOKEN"])
-    updater.start_webhook(port=port)
+    # updater.start_webhook(port=port)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
