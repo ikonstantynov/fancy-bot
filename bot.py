@@ -76,8 +76,12 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
     logger.info('Starting the bot...')
-    updater.start_webhook(listen="0.0.0.0", port=int(port), url_path=tg_api_token)
-    updater.bot.setWebhook(f'{app_url}{tg_api_token}')
+    updater.start_webhook(
+        listen="0.0.0.0",
+        port=int(port),
+        url_path=tg_api_token,
+        webhook_url=f'{app_url}{tg_api_token}'
+    )
 
     logger.info('Running the bot in idle mode')
     # Start the Bot
