@@ -54,12 +54,15 @@ def echo(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     """Start the bot."""
-    logger.info('Starting the bot')
+    logger.info('Starting the bot configuration...')
+    tg_api_token = os.environ["TG_API_TOKEN"]
+    port = int(os.environ["APP_PORT"])
+    app_url = os.environ["APP_URL"]
+
+    logger.info(f'Listening to {app_url=} {port=}')
+
     # Create the Updater and pass it your bot's token.
-    # port = os.getenv('PORT', default=80)
-    # logger.info(f'Listening to port {port}')
-    updater = Updater(os.environ["TG_API_TOKEN"])
-    # updater.start_webhook(port=port)
+    updater = Updater(tg_api_token, use_context=True)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -72,11 +75,13 @@ def main() -> None:
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
-    logger.info('Starting polling')
-    # Start the Bot
-    updater.start_polling()
+    logger.info('Starting the bot...')
+    updater.start_webhook(listen="0.0.0.0", port=int(port), url_path=tg_api_token)
+    updater.bot.setWebhook(f'{app_url}{tg_api_token}')
 
     logger.info('Running the bot in idle mode')
+    # Start the Bot
+    # updater.start_polling()
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
