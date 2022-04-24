@@ -56,7 +56,7 @@ def main() -> None:
     """Start the bot."""
     logger.info('Starting the bot configuration...')
     tg_api_token = os.environ["TG_API_TOKEN"]
-    port = int(os.environ["APP_PORT"])
+    port = int(os.environ["PORT"])
     app_url = os.environ["APP_URL"]
 
     logger.info(f'Listening to {app_url=} {port=}')
