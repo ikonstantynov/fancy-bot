@@ -2,5 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: bundle exec puma -C config/puma.rb
-  worker: python bot.py
+  web: gunicorn fancy_bot.wsgi:application --bind 0.0.0.0:8000

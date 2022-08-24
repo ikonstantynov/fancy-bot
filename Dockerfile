@@ -1,11 +1,19 @@
-FROM python:3.8
+# pull official base image
+FROM python:3.10-alpine
 
-ARG APP_DIR=app
+# set work directory
+WORKDIR /app
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV DEBUG 0
 
-ADD bot.py /$APP_DIR/
-ADD requirements.txt /$APP_DIR/
-WORKDIR /$APP_DIR
-
+# install dependencies
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-CMD python bot.py
+
+# copy project
+COPY . .
+
+CMD gunicorn fancy_bot.wsgi:application --bind 0.0.0.0:8000
